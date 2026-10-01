@@ -46,6 +46,7 @@ function card(t, bleed) {
       <span>Валькирия</span>
     </div>
     <p class="tagline">Голосовой ИИ-диспетчер<br>для охранных служб</p>
+    <p class="forum">Особые условия для участников<br>ПРОбезопасность</p>
     <div class="field">
       <div class="row"><span>имя</span></div>
       <div class="row"><span>телефон</span></div>
@@ -55,7 +56,6 @@ function card(t, bleed) {
       <p class="qr__cap">Сайт и предзапись</p>
       <p class="qr__url">${shortUrl}</p>
     </div>
-    <p class="forum">Особые условия<br>для участников<br>ПРОбезопасность</p>
   </div>
 </div>`;
 }
@@ -75,20 +75,24 @@ html, body { background: #fff; -webkit-print-color-adjust: exact; print-color-ad
 .brand { display: flex; align-items: center; gap: 1.6mm; font-weight: 650; font-size: 10.5pt; letter-spacing: -0.01em; line-height: 1; }
 .brand svg { width: 2.3mm; height: 3.9mm; fill: ${t.accent}; flex: none; }
 .tagline { margin-top: 2.2mm; font: 400 6.3pt/1.35 JBM, monospace; text-transform: uppercase; letter-spacing: .06em; color: ${t.muted}; }
+.forum { margin-top: 2.6mm; font-size: 6.4pt; line-height: 1.3; font-weight: 600; color: ${t.accent}; }
+/* левая колонка 44 мм, правая (QR) 34 мм */
 .field {
-  position: absolute; left: 0; bottom: 0; width: 52mm; height: 21mm;
-  background: ${t.field}; border-radius: 1.4mm; padding: 0 2.6mm;
+  position: absolute; left: 0; bottom: 0; width: 44mm; height: 15mm;
+  background: ${t.field}; border-radius: 1.4mm; padding: 0 2.4mm;
   display: grid; grid-template-rows: 1fr 1fr;
 }
 .row { position: relative; border-bottom: 0.2mm dashed ${t.fieldLine}; }
 .row:last-child { border-bottom: 0; }
-.row span { position: absolute; left: 0; top: 1.1mm; font: 400 5.2pt/1 JBM, monospace; color: ${t.fieldLabel}; text-transform: uppercase; letter-spacing: .08em; }
-.qr { position: absolute; right: 0; top: 0; width: 23mm; text-align: center; }
-.qr__box { width: 23mm; height: 23mm; background: ${t.qrBg}; border-radius: 1.2mm; padding: 1.8mm; border: ${t.border}; }
+.row span { position: absolute; left: 0; top: 0.9mm; font: 400 5pt/1 JBM, monospace; color: ${t.fieldLabel}; text-transform: uppercase; letter-spacing: .08em; }
+.qr {
+  position: absolute; right: 0; top: 0; bottom: 0; width: 34mm;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+}
+.qr__box { width: 29mm; height: 29mm; background: ${t.qrBg}; border-radius: 1.4mm; padding: 2mm; border: ${t.border}; }
 .qr__box svg { display: block; width: 100%; height: 100%; }
-.qr__cap { margin-top: 1.6mm; font-size: 6.3pt; font-weight: 600; line-height: 1.2; }
-.qr__url { margin-top: .5mm; font: 400 5pt/1.2 JBM, monospace; color: ${t.muted}; }
-.forum { position: absolute; right: 0; bottom: 0; width: 23mm; text-align: center; font-size: 5.6pt; line-height: 1.25; font-weight: 600; color: ${t.accent}; }
+.qr__cap { margin-top: 1.8mm; font-size: 7pt; font-weight: 600; line-height: 1.2; }
+.qr__url { margin-top: .6mm; font: 400 6pt/1.2 JBM, monospace; color: ${t.muted}; white-space: nowrap; }
 `;
 }
 

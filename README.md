@@ -41,7 +41,7 @@ tag: Интерфейс
 ## Деплой на Vercel
 
 1. vercel.com → Add New → Project → импортировать `valkiria`. Настройки сборки уже в `vercel.json`, ничего менять не нужно → Deploy.
-2. Адрес проекта: Settings → Domains. Если `valkiria.vercel.app` занят — поменять `siteUrl` в `site.config.js` (от него зависят QR и ссылки).
+2. Адрес проекта: Settings → Domains. Сейчас сайт на `valkiria-gamma.vercel.app`. Сменится адрес — поменять `siteUrl` в `site.config.js` (от него зависят QR и ссылки).
 3. Хранилище: проект → Storage → Create → **Upstash for Redis** (бесплатный план) → Connect. Переменные `KV_REST_API_URL` и `KV_REST_API_TOKEN` добавятся сами.
 4. Бот: в Telegram @BotFather → `/newbot` → получить токен.
 5. Settings → Environment Variables:
