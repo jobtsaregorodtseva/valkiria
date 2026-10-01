@@ -7,7 +7,7 @@
 // Уведомления о новых записях уходят админам в Telegram (TELEGRAM_BOT_TOKEN + ADMIN_TG_IDS).
 // Не проверено на живом боте: перед запуском пройти /start → «Записаться» → анкета → /stop.
 import { firstTime } from "../lib/store.js";
-import { onStart, onButton, onText, onStop, onStatus } from "../lib/flow.js";
+import { onStart, onButton, onText, onStop, onStatus, sweepPending } from "../lib/flow.js";
 
 const TOKEN = process.env.MAX_BOT_TOKEN;
 const SECRET = process.env.MAX_WEBHOOK_SECRET;
@@ -94,6 +94,7 @@ export default async function handler(req, res) {
   try {
     const key = `max:${update.update_type}:${update.timestamp}:${update.user?.user_id || update.message?.body?.mid || update.callback?.callback_id || ""}`;
     if (await firstTime(key)) await onUpdate(update);
+    await sweepPending("max", (id) => io(id));
   } catch (e) {
     console.error(e);
   }

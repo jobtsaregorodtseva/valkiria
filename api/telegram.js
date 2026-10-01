@@ -7,7 +7,7 @@
 import { listSubs, removeSub, firstTime } from "../lib/store.js";
 import { texts, escapeHtml, pad } from "../lib/bot-texts.js";
 import { QUESTIONS, answerLabel } from "../lib/questions.js";
-import { onStart, onButton, onText, onStop, onStatus } from "../lib/flow.js";
+import { onStart, onButton, onText, onStop, onStatus, sweepPending } from "../lib/flow.js";
 
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const SECRET = process.env.TELEGRAM_WEBHOOK_SECRET;
@@ -60,7 +60,7 @@ async function exportCsv(chatId) {
     new Date(s.at).toLocaleString("ru-RU", { timeZone: "Asia/Novosibirsk" }),
     s.company || "",
     ...QUESTIONS.map((q) => answerLabel(q.id, s.answers?.[q.id])),
-    s.done ? "заполнена" : "не до конца",
+    s.done ? "заполнена" : s.company ? "не до конца" : "только запись",
     s.pf,
     s.src || "",
   ].map(csvCell).join(";"));
@@ -78,8 +78,9 @@ async function stats(chatId) {
   const [t, m] = await Promise.all([listSubs("tg"), listSubs("max")]);
   const all = [...t, ...m];
   const done = all.filter((s) => s.done).length;
+  const bare = all.filter((s) => !s.company).length;
   const hot = all.filter((s) => s.answers?.when === "now").length;
-  return send(chatId, `Предзапись: <b>${all.length}</b> (Telegram ${t.length}, MAX ${m.length})\nАнкету заполнили: ${done}\nГотовы к пилоту сейчас: ${hot}\n\nТаблица: /export`);
+  return send(chatId, `Предзапись: <b>${all.length}</b> (Telegram ${t.length}, MAX ${m.length})\nАнкету заполнили: ${done}\nТолько нажали «Записаться»: ${bare}\nГотовы к пилоту сейчас: ${hot}\n\nТаблица: /export`);
 }
 
 async function broadcast(fromId, text) {
@@ -144,6 +145,7 @@ export default async function handler(req, res) {
     if (update.update_id && !(await firstTime(`tg:${update.update_id}`))) return res.status(200).json({ ok: true });
     if (update.message) await onMessage(update.message);
     else if (update.callback_query) await onCallback(update.callback_query);
+    await sweepPending("tg", (id) => io(id));
   } catch (e) {
     console.error(e);
     // Хранилище или Telegram недоступны — не теряем человека: ID уходит админам.
