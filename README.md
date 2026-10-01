@@ -64,3 +64,12 @@ tag: Интерфейс
 
 Собирается при каждой сборке: `/qr.svg` (для печати) и `/qr.png`. Ведёт на `siteUrl/?from=qr` —
 метка доходит до бота, и в уведомлении о записи видно, что человек пришёл с форума.
+
+## Визитка
+
+`npm run card` → `print/out/`: визитка 90×50 мм с QR на сайт (`?from=card`) и полем для имени и телефона от руки.
+- `card-dark-print.pdf`, `card-light-print.pdf` — для типографии, 94×54 мм с вылетами по 2 мм.
+- `card-dark-a4.pdf`, `card-light-a4.pdf` — 10 штук на A4 с метками реза, печатать в масштабе 100%.
+
+QR строится из `siteUrl` в `site.config.js` — поменяли адрес сайта, пересоберите визитку.
+На Windows нужен Chrome или Edge: `set CHROME_PATH=C:\Program Files\Google\Chrome\Application\chrome.exe`.
