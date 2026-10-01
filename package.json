@@ -1,0 +1,19 @@
+{
+  "name": "valkiria",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/build.mjs && npx --yes serve dist -l 3000",
+    "check": "node --check api/telegram.js && node --check api/max.js && node scripts/build.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@fontsource-variable/onest": "^5.3.1",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "marked": "^15.0.12",
+    "qrcode": "^1.5.4"
+  }
+}

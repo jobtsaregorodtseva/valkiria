@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Валькирия — голосовой ИИ-диспетчер для охранных служб</title>
+<meta name="description" content="Валькирия принимает звонки с постов и от клиентов, разговаривает голосом, заносит доклады, события и тревоги в журнал и готовит отчёты смены. Можно развернуть на своём сервере.">
+<meta name="theme-color" content="#0b0b0a">
+<link rel="canonical" href="{{SITE_URL}}/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Валькирия — голосовой ИИ-диспетчер для охранных служб">
+<meta property="og:description" content="Валя берёт трубку, когда диспетчер занят: принимает доклады с постов, регистрирует события и готовит отчёты.">
+<meta property="og:url" content="{{SITE_URL}}/">
+<meta property="og:image" content="{{SITE_URL}}/og.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Журнал разработки Валькирии" href="/updates/rss.xml">
+<link rel="preload" href="/fonts/onest-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/jbm-cyrillic-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/styles.css?v={{BUILD_ID}}">
+</head>
+<body>
+
+<a class="forum-bar" href="#forum">
+  <span class="forum-bar__dot" aria-hidden="true"></span>
+  <span><b>Особые условия для участников ПРОбезопасность</b><span class="forum-bar__meta"> · {{FORUM_PLACE}}, {{FORUM_DATES}}</span></span>
+  <span class="forum-bar__go" aria-hidden="true">→</span>
+</a>
+
+<header class="nav" id="top">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top" aria-label="Валькирия — на главную">
+      <svg class="brand__mark" viewBox="0 0 26 44" aria-hidden="true"><path d="M0 0h12v29h14v15H0z"/></svg>
+      <span>Валькирия</span>
+    </a>
+    <nav class="nav__links" aria-label="Разделы">
+      <a href="#how">Как работает</a>
+      <a href="#features">Возможности</a>
+      <a href="#plans">В планах</a>
+      <a href="#updates">Обновления</a>
+      <a href="#faq">Вопросы</a>
+    </nav>
+    <a class="btn btn--sm btn--ghost" href="{{DEV_TG_URL}}" target="_blank" rel="noopener">Связаться</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      <p class="eyebrow">Голосовой ИИ-диспетчер для охранных служб</p>
+      <h1>Валя берёт трубку, когда диспетчер занят</h1>
+      <p class="lead">Валькирия принимает звонки с постов и от клиентов, разговаривает голосом, сама заносит доклады, события и тревоги в журнал и собирает отчёт к концу смены.</p>
+      <div class="hero__cta">
+        <a class="btn btn--accent" href="{{DEV_TG_URL}}" target="_blank" rel="noopener">Написать разработчику <span aria-hidden="true">→</span></a>
+        <a class="btn btn--ghost" href="{{BOT_TG_HREF}}" target="_blank" rel="noopener">{{BOT_TG_LABEL}}</a>
+      </div>
+      <p class="hero__note"><span class="tag tag--amber">MVP</span> Ядро работает. Подключаем первые охранные организации в пилот.</p>
+    </div>
+
+    <div class="console" aria-label="Пример: разговор поста с Валей и журнал смены">
+      <div class="console__tabs" aria-hidden="true">
+        <span class="k k--violet">Г</span><span class="console__tab">Главная</span>
+        <span class="k k--green">В</span><span class="console__tab is-on">Валя</span>
+        <span class="k k--blue">С</span><span class="console__tab">Система</span>
+        <span class="k k--teal">З</span><span class="console__tab">Звонки</span>
+      </div>
+      <div class="console__head">
+        <span class="console__title">Входящий · пост 2 · ТЦ «Меркурий»</span>
+        <span class="live"><i></i>на линии <span class="mono" data-timer>00:00</span></span>
+      </div>
+      <ol class="talk" data-talk>
+        <li class="talk__row talk__row--in"><span class="talk__who">Пост</span><p>Валя, пост два, «Меркурий». Обход закончил, замечаний нет.</p></li>
+        <li class="talk__row talk__row--out"><span class="talk__who">Валя</span><p>Принято, пост два. Доклад за десять ноль-ноль записала. Следующий — в одиннадцать.</p></li>
+        <li class="talk__sys"><span class="ok">✓</span> Доклад принят · ТЦ «Меркурий» · 10:02</li>
+        <li class="talk__row talk__row--in"><span class="talk__who">Пост</span><p>И ещё: у служебного входа не закрывается дверь.</p></li>
+        <li class="talk__row talk__row--out"><span class="talk__who">Валя</span><p>Зарегистрировала событие «Неисправность двери» по объекту. Что-то ещё?</p></li>
+        <li class="talk__sys"><span class="warn">●</span> Событие #318 · техническая неисправность · ТЦ «Меркурий»</li>
+      </ol>
+      <div class="console__foot" aria-hidden="true">
+        <span>Расшифровка · Vosk</span><span>Модель · локально</span><span class="console__ok">● линия спокойна</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <ul class="facts">
+      <li><b>21 действие</b><span>Валя выполняет прямо во время разговора</span></li>
+      <li><b>Свой сервер</b><span>можно развернуть без облака, на локальной модели</span></li>
+      <li><b>Asterisk · SIP</b><span>с вашей АТС или напрямую через оператора</span></li>
+      <li><b>DOCX · Excel</b><span>отчёты и журналы по вашему шаблону</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ PROBLEM ============ -->
+<section class="section" id="shift">
+  <div class="wrap">
+    <p class="eyebrow">Знакомая смена</p>
+    <h2>Диспетчер один, а звонят все сразу</h2>
+    <div class="timeline">
+      <article class="moment">
+        <time class="mono">02:40</time>
+        <p>Три линии звонят одновременно: пост докладывает обход, клиент спрашивает про сработку, экипаж ждёт адрес.</p>
+      </article>
+      <article class="moment">
+        <time class="mono">03:15</time>
+        <p>Доклад с поста не пришёл. Заметят, когда кто-нибудь вспомнит заглянуть в журнал.</p>
+      </article>
+      <article class="moment">
+        <time class="mono">08:00</time>
+        <p>Пересменка. Журнал заполнен наполовину, отчёт для заказчика собирают вручную до обеда.</p>
+      </article>
+    </div>
+    <p class="section__punch">Валькирия забирает рутину смены — доклады, справки, записи в журнал, — чтобы диспетчер занимался тем, где нужен человек.</p>
+  </div>
+</section>
+
+<!-- ============ HOW ============ -->
+<section class="section section--panel" id="how">
+  <div class="wrap">
+    <p class="eyebrow">Как работает</p>
+    <h2>Один звонок — от «алло» до записи в журнале</h2>
+    <ol class="flow">
+      <li><span class="flow__n mono">01</span><h3>Звонок</h3><p>Входящий через Asterisk, SIP-оператора или микрофон в тестовом режиме.</p></li>
+      <li><span class="flow__n mono">02</span><h3>Расшифровка</h3><p>Речь превращается в текст. Распознавание работает на вашем компьютере.</p></li>
+      <li><span class="flow__n mono">03</span><h3>Понимание</h3><p>Языковая модель понимает, что нужно, и выбирает действие.</p></li>
+      <li><span class="flow__n mono">04</span><h3>Действие</h3><p>Отмечает доклад, создаёт событие или тревогу, находит данные в базе.</p></li>
+      <li><span class="flow__n mono">05</span><h3>Ответ голосом</h3><p>Валя отвечает, переспрашивает, если что-то непонятно, и ведёт разговор дальше.</p></li>
+      <li><span class="flow__n mono">06</span><h3>След в журнале</h3><p>Запись, расшифровка и оценка разговора сохраняются в карточке звонка.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section class="section" id="features">
+  <div class="wrap">
+    <p class="eyebrow">Возможности</p>
+    <h2>Всё, что ведёт дежурная часть, — в одном окне</h2>
+
+    <div class="feature-lead">
+      <div class="feature-lead__copy">
+        <span class="k k--blue">С</span>
+        <h3>Система докладов</h3>
+        <p>Для каждого объекта задаётся расписание докладов. Пост звонит — Валя принимает доклад голосом и ставит отметку. Доклад не пришёл в допустимое время — поднимается тревога.</p>
+      </div>
+      <div class="grid-demo" aria-label="Пример таблицы докладов по объектам">
+        <div class="grid-demo__row grid-demo__row--head mono"><span>Объект</span><span>Кат.</span><span>06</span><span>07</span><span>08</span><span>09</span><span>10</span><span>11</span></div>
+        <div class="grid-demo__row"><span>ТЦ «Меркурий»</span><span class="cat">A</span><i class="d ok"></i><i class="d ok"></i><i class="d ok"></i><i class="d ok"></i><i class="d ok"></i><i class="d wait"></i></div>
+        <div class="grid-demo__row"><span>Склад «Южный хаб»</span><span class="cat">C</span><i class="d ok"></i><i class="d ok"></i><i class="d late"></i><i class="d ok"></i><i class="d ok"></i><i class="d wait"></i></div>
+        <div class="grid-demo__row"><span>БЦ «Вектор»</span><span class="cat">B</span><i class="d ok"></i><i class="d ok"></i><i class="d ok"></i><i class="d ok"></i><i class="d miss"></i><i class="d wait"></i></div>
+        <div class="grid-demo__row"><span>ЖК «Солнечный»</span><span class="cat">B</span><i class="d ok"></i><i class="d ok"></i><i class="d ok"></i><i class="d ok"></i><i class="d ok"></i><i class="d wait"></i></div>
+        <div class="grid-demo__legend mono"><span><i class="d ok"></i>принят</span><span><i class="d late"></i>с опозданием</span><span><i class="d miss"></i>просрочен → тревога</span><span><i class="d wait"></i>ожидается</span></div>
+      </div>
+    </div>
+
+    <ul class="features">
+      <li><span class="k k--green">В</span><h3>Чат с Валей</h3><p>Те же действия текстом: «покажи активные тревоги», «кто сегодня дежурит?», «создай объект».</p></li>
+      <li><span class="k k--amber">О</span><h3>Объекты</h3><p>Картотека охраняемых объектов: категории риска A–D, ответственные, юрлица, контакты, адреса.</p></li>
+      <li><span class="k k--amber">О</span><h3>Сотрудники</h3><p>Охранники, диспетчеры, старшие смен. Назначение на объекты, графики, табель, производственный календарь.</p></li>
+      <li><span class="k k--red">С</span><h3>События и тревоги</h3><p>Журнал событий и активных тревог. Регистрация — прямо из разговора, без ручного ввода.</p></li>
+      <li><span class="k k--teal">З</span><h3>Звонки</h3><p>История вызовов, запись разговора, расшифровка и оценка диалога ИИ в карточке звонка.</p></li>
+      <li><span class="k k--grey">Л</span><h3>Отчёты и журнал действий</h3><p>Отчёты DOCX по шаблону, выгрузка в Excel. Журнал действий пользователей и автобэкап базы каждые 30 минут.</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ DATA ============ -->
+<section class="section section--panel" id="data">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">Данные</p>
+      <h2>Разговоры и журналы остаются у вас</h2>
+    </div>
+    <ul class="checks">
+      <li><b>Можно без облака.</b> Валькирия разворачивается на компьютере или сервере организации: языковая модель и распознавание речи работают локально, без интернета.</li>
+      <li><b>Или с облачной моделью</b> через OpenAI-совместимый API — если так удобнее. Выбор за вами.</li>
+      <li><b>Своя база.</b> Записи, расшифровки и журналы хранятся в вашей базе данных, с автобэкапом каждые 30 минут.</li>
+      <li><b>Кто что сделал — видно.</b> Авторизация и журнал действий пользователей.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ CHANNELS + AUDIENCE ============ -->
+<section class="section" id="channels">
+  <div class="wrap">
+    <p class="eyebrow">Подключение</p>
+    <h2>Работает с телефонией, которая у вас уже есть</h2>
+    <ul class="channels">
+      <li><h3>Asterisk</h3><p>Мониторинг активных звонков, голосовой диалог, перевод вызова на телефон диспетчера.</p><span class="tag tag--green">интеграция готова</span></li>
+      <li><h3>SIP-оператор</h3><p>Приём звонков напрямую через оператора связи — без собственной АТС.</p><span class="tag tag--amber">подключаем у первых клиентов</span></li>
+      <li><h3>Тестовый режим</h3><p>Разговор с Валей через микрофон и колонки — для демонстрации и обучения смены.</p><span class="tag tag--green">готово</span></li>
+    </ul>
+
+    <div class="audience">
+      <h3 class="audience__title">Кому подойдёт</h3>
+      <ul>
+        <li><b>ЧОП и охранные холдинги</b> с дежурной частью или пультом наблюдения</li>
+        <li><b>Службы безопасности предприятий</b> — заводы, склады, логистика</li>
+        <li><b>Охрана БЦ, ТЦ и жилых комплексов</b> — где есть посты и регулярные доклады</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROADMAP ============ -->
+<section class="section section--panel" id="plans">
+  <div class="wrap">
+    <p class="eyebrow">Дорожная карта</p>
+    <h2>Что уже работает и что добавим</h2>
+    <p class="section__sub">Валькирия развивается вместе с первыми клиентами: порядок задач определяем по их запросам. Ход работ публикуем в <a href="#updates">журнале обновлений</a>.</p>
+
+    <div class="road">
+      <div class="road__col">
+        <h3 class="road__h"><span class="tag tag--green">работает</span></h3>
+        <ul>
+          <li>Голосовой диалог: распознавание → модель → действие → ответ</li>
+          <li>Чат с Валей и 21 действие из разговора</li>
+          <li>Система докладов с тревогой при просрочке</li>
+          <li>Объекты, сотрудники, графики, табель</li>
+          <li>Журнал звонков с записью и расшифровкой</li>
+          <li>Отчёты DOCX, выгрузка в Excel, автобэкапы</li>
+          <li>Интеграция с Asterisk</li>
+        </ul>
+      </div>
+      <div class="road__col">
+        <h3 class="road__h"><span class="tag tag--amber">в работе</span></h3>
+        <ul>
+          <li>Приём реальных звонков через SIP-оператора</li>
+          <li>Сквозной прогон: звонок → диалог → событие → отчёт</li>
+          <li>Роли и права доступа</li>
+          <li>Подготовка к работе на боевых данных</li>
+        </ul>
+      </div>
+      <div class="road__col road__col--wide">
+        <h3 class="road__h"><span class="tag tag--blue">в планах</span></h3>
+        <ul class="road__plans">
+          <li><b>Контрольные звонки на посты.</b> Доклад не пришёл — Валя сама звонит охраннику, а если пост не отвечает, поднимает тревогу.</li>
+          <li><b>Обзвон ответственных по тревоге</b> с отметкой, кто и когда подтвердил.</li>
+          <li><b>Передача звонка диспетчеру</b> с кратким пересказом разговора — когда ситуация нестандартная.</li>
+          <li><b>Уведомления руководителю</b> в Telegram и MAX: тревоги, просроченные доклады, итоги смены.</li>
+          <li><b>Связка с пультовым ПО:</b> события с пульта — в журнал Валькирии.</li>
+          <li><b>Несколько линий одновременно.</b></li>
+          <li><b>Веб-кабинет руководителя:</b> смены, доклады и отчёты с любого устройства.</li>
+          <li><b>Аналитика смен:</b> нагрузка по часам, время реакции, дисциплина докладов.</li>
+          <li><b>Сценарии разговора без программиста</b> — свои вопросы и действия под каждый объект.</li>
+          <li><b>Выгрузка табеля в 1С</b> и учётные системы.</li>
+          <li><b>Выбор голоса</b> Вали.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FORUM ============ -->
+<section class="section forum" id="forum">
+  <div class="wrap">
+    <div class="forum__card">
+      <div class="forum__copy">
+        <p class="eyebrow eyebrow--accent">{{FORUM_NAME}} · {{FORUM_PLACE}}, {{FORUM_DATES}}</p>
+        <h2>Особые условия для участников форума</h2>
+        <p>Участникам ПРОбезопасность — скидка на подключение Валькирии. Размер объявим в ближайшее время.</p>
+        <p>Чтобы закрепить условия за собой, запишитесь в боте — это одна кнопка, без имени и телефона. Когда откроем подключение, бот пришлёт сообщение.</p>
+      </div>
+      <div class="forum__actions">
+        <a class="btn btn--accent btn--block" href="{{BOT_TG_HREF}}" target="_blank" rel="noopener">{{BOT_TG_LABEL}} <span aria-hidden="true">→</span></a>
+        {{BOT_MAX_BUTTON}}
+        <a class="btn btn--ghost btn--block" href="{{DEV_TG_URL}}" target="_blank" rel="noopener">Встретиться на форуме</a>
+        <p class="forum__fine">Бот сохраняет только ваш Telegram ID. <a href="/privacy">Подробнее</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ UPDATES ============ -->
+<section class="section section--panel" id="updates">
+  <div class="wrap">
+    <div class="updates__head">
+      <div>
+        <p class="eyebrow">Журнал разработки</p>
+        <h2>Обновления</h2>
+      </div>
+      <div class="updates__links">
+        <a href="/updates/">Все обновления</a>
+        <a href="/updates/rss.xml">RSS</a>
+      </div>
+    </div>
+    <div class="updates">
+      <!--UPDATES_LATEST-->
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">Вопросы</p>
+      <h2>Что обычно спрашивают</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>Валькирия заменит диспетчера?</summary>
+        <p>Нет. Валя берёт на себя рутину — доклады, справочные вопросы, записи в журнал, отчёты. Решения при тревоге остаются за людьми.</p>
+      </details>
+      <details>
+        <summary>Это готовый продукт?</summary>
+        <p>Это MVP: голосовое ядро, доклады, журнал и отчёты работают, интеграции доводим до боевых вместе с первыми клиентами. Что готово, а что в работе — в разделе <a href="#plans">«Дорожная карта»</a>.</p>
+      </details>
+      <details>
+        <summary>Что нужно для запуска?</summary>
+        <p>Компьютер или сервер на Windows. Для телефонии — Asterisk или SIP-аккаунт у оператора связи. Для локальной языковой модели нужна конфигурация помощнее — подберём под вашу нагрузку.</p>
+      </details>
+      <details>
+        <summary>Куда уходят записи разговоров?</summary>
+        <p>Хранятся в вашей базе. С локальной моделью разговоры не покидают ваш компьютер или сервер.</p>
+      </details>
+      <details>
+        <summary>Как звучит Валя?</summary>
+        <p>Запись разговора скоро опубликуем здесь. А на форуме можно поговорить с Валей вживую — <a href="{{DEV_TG_URL}}" target="_blank" rel="noopener">напишите разработчику</a>, договоримся о демо.</p>
+      </details>
+      <details>
+        <summary>Можно доработать под нашу службу?</summary>
+        <p>Да. Сценарии разговора, поля карточек и шаблоны отчётов настраиваются под организацию. Пилотные клиенты влияют на то, что мы делаем дальше.</p>
+      </details>
+      <details>
+        <summary>Сколько стоит?</summary>
+        <p>Прайса пока нет: стоимость зависит от числа объектов и линий. Участникам ПРОбезопасность — <a href="#forum">особые условия</a>.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section contact" id="contact">
+  <div class="wrap">
+    <p class="eyebrow">Связаться</p>
+    <h2>Посмотреть Валю в работе</h2>
+    <div class="contact__card">
+      <div class="person">
+        <span class="person__ava" aria-hidden="true">{{DEV_INITIAL}}</span>
+        <div>
+          <p class="person__name">{{DEV_NAME}}</p>
+          <p class="person__role">{{DEV_ROLE}} Валькирии</p>
+        </div>
+      </div>
+      <p class="contact__text">Покажу Валю в работе, отвечу на вопросы по интеграции и обсудим пилот для вашей службы.</p>
+      <div class="contact__actions">
+        <a class="btn btn--accent" href="{{DEV_TG_URL}}" target="_blank" rel="noopener">Telegram · @{{DEV_TG}}</a>
+        {{DEV_WA_BUTTON}}
+        {{DEV_PHONE_BUTTON}}
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__in">
+    <span class="brand brand--sm"><svg class="brand__mark" viewBox="0 0 26 44" aria-hidden="true"><path d="M0 0h12v29h14v15H0z"/></svg>Валькирия</span>
+    <span class="footer__muted">Голосовой ИИ-диспетчер для охранных служб · © {{YEAR}}</span>
+    <span class="footer__links"><a href="/updates/">Обновления</a><a href="/privacy">Данные в боте</a></span>
+  </div>
+</footer>
+
+<script src="/main.js?v={{BUILD_ID}}" defer></script>
+</body>
+</html>
