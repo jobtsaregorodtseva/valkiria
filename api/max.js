@@ -1,13 +1,13 @@
-// Вебхук бота предзаписи в MAX. Логика та же, что у Telegram-бота.
+// Вебхук бота предзаписи в MAX. Сценарий общий с Telegram (lib/flow.js).
 // Включается после верификации на платформе «MAX для партнёров» и модерации бота.
 // Переменные окружения:
 //   MAX_BOT_TOKEN       — токен бота
-//   MAX_WEBHOOK_SECRET  — секрет, переданный при подписке (scripts/set-max-webhook.mjs)
+//   MAX_WEBHOOK_SECRET  — секрет, переданный при подписке (/api/setup)
 //   MAX_API_BASE        — по умолчанию https://platform-api2.max.ru
 // Уведомления о новых записях уходят админам в Telegram (TELEGRAM_BOT_TOKEN + ADMIN_TG_IDS).
-// Не проверено на живом боте: перед запуском прогнать /start, запись и /stop.
-import { addSub, getSub, removeSub, firstTime } from "../lib/store.js";
-import { texts, buttons, links, cleanSource } from "../lib/bot-texts.js";
+// Не проверено на живом боте: перед запуском пройти /start → «Записаться» → анкета → /stop.
+import { firstTime } from "../lib/store.js";
+import { onStart, onButton, onText, onStop, onStatus } from "../lib/flow.js";
 
 const TOKEN = process.env.MAX_BOT_TOKEN;
 const SECRET = process.env.MAX_WEBHOOK_SECRET;
@@ -15,31 +15,27 @@ const API = (process.env.MAX_API_BASE || "https://platform-api2.max.ru").replace
 const TG_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const ADMINS = (process.env.ADMIN_TG_IDS || "").split(",").map((s) => s.trim()).filter(Boolean);
 
-async function max(path, params, body) {
+async function max(method, path, params, body) {
   const qs = new URLSearchParams(params).toString();
   const r = await fetch(`${API}${path}${qs ? `?${qs}` : ""}`, {
-    method: "POST",
+    method,
     headers: { Authorization: TOKEN, "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
   const data = await r.json().catch(() => ({}));
-  if (!r.ok) console.error(`max ${path}:`, r.status, data);
+  if (!r.ok) console.error(`max ${method} ${path}:`, r.status, data);
   return data;
 }
 
-const keyboard = (joinPayload) => ({
+const keyboard = (rows) => ({
   type: "inline_keyboard",
   payload: {
-    buttons: [
-      ...(joinPayload ? [[{ type: "callback", text: `✅ ${buttons.join}`, payload: joinPayload }]] : []),
-      [{ type: "link", text: buttons.dev, url: links.dev }],
-      [{ type: "link", text: buttons.site, url: links.site }],
-    ],
+    buttons: rows.map((row) => row.map((b) => (b.url ? { type: "link", text: b.text, url: b.url } : { type: "callback", text: b.text, payload: b.data }))),
   },
 });
 
-const send = (userId, text, joinPayload) =>
-  max("/messages", { user_id: userId }, { text, format: "html", attachments: [keyboard(joinPayload)] });
+const send = (userId, text, rows) =>
+  max("POST", "/messages", { user_id: userId }, { text, format: "html", ...(rows?.length && { attachments: [keyboard(rows)] }) });
 
 async function notifyAdmins(text) {
   if (!TG_TOKEN) return;
@@ -47,59 +43,44 @@ async function notifyAdmins(text) {
     fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ chat_id, text }),
+      body: JSON.stringify({ chat_id, text, parse_mode: "HTML" }),
     })));
 }
 
-async function hello(userId, source) {
-  const existing = await getSub("max", userId).catch(() => null);
-  if (existing) return send(userId, texts.already(existing.n));
-  return send(userId, texts.hello(), source ? `join:${source}` : "join");
-}
-
-async function join(userId, source) {
-  try {
-    const { sub, isNew } = await addSub("max", userId, source);
-    await send(userId, isNew ? texts.joined(sub.n) : texts.already(sub.n));
-    if (isNew) await notifyAdmins(texts.adminNew("max", sub.n, sub.src));
-  } catch (e) {
-    console.error(e);
-    await notifyAdmins(texts.adminStoreDown("max", userId));
-    await send(userId, texts.storeDown());
-  }
+function io(userId, mid) {
+  return {
+    platform: "max",
+    send: (text, rows) => send(userId, text, rows),
+    notifyAdmins,
+    // Нажали кнопку — заменяем вопрос на «✓ ответ» без кнопок.
+    answered: mid ? (text) => max("PUT", "/messages", { message_id: mid }, { text, format: "html", attachments: [] }) : null,
+  };
 }
 
 async function onUpdate(u) {
   switch (u.update_type) {
     case "bot_started":
-      return hello(u.user?.user_id, cleanSource(u.payload));
+      return onStart(io(u.user?.user_id), u.user?.user_id, u.payload);
 
     case "message_created": {
       const m = u.message;
       if (m?.recipient?.chat_type && m.recipient.chat_type !== "dialog") return;
       const userId = m?.sender?.user_id;
       const text = (m?.body?.text || "").trim();
-      if (!userId) return;
-      if (text.startsWith("/start")) return hello(userId, cleanSource(text.split(/\s+/)[1]));
-      if (text === "/stop") {
-        const removed = await removeSub("max", userId).catch(() => false);
-        return send(userId, removed ? texts.stopped() : texts.notSubscribed());
-      }
-      if (text === "/status") {
-        const sub = await getSub("max", userId).catch(() => null);
-        return send(userId, sub ? texts.already(sub.n) : texts.notSubscribed());
-      }
-      return send(userId, texts.help());
+      if (!userId || !text) return;
+      const x = io(userId);
+      if (text.startsWith("/start")) return onStart(x, userId, text.split(/\s+/)[1]);
+      if (text === "/stop") return onStop(x, userId);
+      if (text === "/status") return onStatus(x, userId);
+      return onText(x, userId, text);
     }
 
     case "message_callback": {
       const cb = u.callback;
       const userId = cb?.user?.user_id;
-      if (!userId) return;
-      await max("/answers", { callback_id: cb.callback_id }, { notification: "Записываем…" });
-      if (cb.payload === "join" || cb.payload?.startsWith("join:")) {
-        return join(userId, cleanSource(cb.payload.split(":")[1]) || "start");
-      }
+      if (!userId || !cb.payload) return;
+      await max("POST", "/answers", { callback_id: cb.callback_id }, { notification: "Принято" });
+      return onButton(io(userId, u.message?.body?.mid), userId, cb.payload);
     }
   }
 }

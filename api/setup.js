@@ -34,15 +34,15 @@ export default async function handler(req, res) {
     out.push(await tg("setMyCommands", {
       commands: [
         { command: "start", description: "Записаться на особые условия" },
-        { command: "status", description: "Проверить запись" },
+        { command: "status", description: "Моя запись" },
         { command: "stop", description: "Удалить запись" },
       ],
     }));
     out.push(await tg("setMyShortDescription", {
-      short_description: "Предзапись на Валькирию — голосового ИИ-диспетчера для охранных служб. Без имени и телефона.",
+      short_description: "Предзапись на Валькирию — голосового ИИ-диспетчера для охранных служб. 30 секунд, без имени и телефона.",
     }));
     out.push(await tg("setMyDescription", {
-      description: "Валькирия — голосовой ИИ-диспетчер для охранных служб.\n\nУчастникам ПРОбезопасность 2026 — особые условия на подключение. Нажмите «Старт», чтобы закрепить их за собой. Бот сохраняет только ваш Telegram ID.",
+      description: "Валькирия — голосовой ИИ-диспетчер для охранных служб.\n\nУчастникам ПРОбезопасность 2026 — особые условия на подключение. Нажмите «Старт», укажите организацию и ответьте на 5 вопросов кнопками — условия закрепятся за вами. Имя и телефон не спрашиваем.",
     }));
   } else {
     out.push("Telegram: TELEGRAM_BOT_TOKEN не задан — пропущено");
