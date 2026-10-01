@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Валькирия — памятка для форума</title>
+<style>
+/*FONTS*/
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font: 400 8.6pt/1.38 Onest, sans-serif; color: #141413; background: #fff; }
+.page { width: 210mm; height: 297mm; padding: 11mm 12mm 10mm; position: relative; page-break-after: always; overflow: hidden; }
+.page:last-child { page-break-after: auto; }
+.head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 3.5mm; border-bottom: 0.3mm solid #141413; margin-bottom: 4mm; }
+.brand { display: flex; align-items: center; gap: 2mm; font-weight: 650; font-size: 12pt; }
+.brand svg { width: 2.6mm; height: 4.4mm; fill: #e58f5c; }
+.head__meta { font: 400 7pt/1.3 JBM, monospace; text-transform: uppercase; letter-spacing: .08em; color: #6c6a64; text-align: right; }
+h1 { font-size: 17pt; font-weight: 680; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 1.5mm; }
+.sub { color: #55534e; margin-bottom: 4mm; }
+h2 { font: 400 7.2pt/1.2 JBM, monospace; text-transform: uppercase; letter-spacing: .1em; color: #b2643a; margin: 0 0 1.8mm; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm 6mm; }
+.box { border: 0.25mm solid #d9d4cc; border-radius: 1.5mm; padding: 3mm 3.4mm; }
+.box--accent { background: #fbf3ec; border-color: #efcdb5; }
+.full { grid-column: 1 / -1; }
+ol, ul { padding-left: 4mm; }
+li { margin: 0.6mm 0; }
+li::marker { color: #9a948a; }
+.say { margin: 1.2mm 0 1.6mm; padding: 2mm 2.6mm; background: #f4f1ec; border-radius: 1.2mm; font-style: italic; }
+.box--accent .say { background: #fff; }
+b { font-weight: 640; }
+.muted { color: #6c6a64; }
+table { width: 100%; border-collapse: collapse; }
+td, th { text-align: left; vertical-align: top; padding: 1.4mm 1.6mm; border-bottom: 0.2mm solid #e3ddd3; }
+th { font: 400 6.6pt/1.2 JBM, monospace; text-transform: uppercase; letter-spacing: .06em; color: #6c6a64; }
+tr:last-child td { border-bottom: 0; }
+.p { display: inline-block; min-width: 4.6mm; text-align: center; padding: 0.2mm 1mm; border-radius: 0.8mm; font: 700 6.6pt/1.3 JBM, monospace; }
+.p1 { background: #141413; color: #fff; }
+.p2 { background: #e58f5c; color: #fff; }
+.p3 { background: #e3ddd3; color: #141413; }
+.check { list-style: none; padding-left: 0; }
+.check li { padding-left: 5mm; position: relative; }
+.check li::before { content: ""; position: absolute; left: 0; top: 0.9mm; width: 2.6mm; height: 2.6mm; border: 0.25mm solid #141413; border-radius: 0.5mm; }
+.foot { position: absolute; left: 12mm; right: 12mm; bottom: 7mm; display: flex; justify-content: space-between; font: 400 6.6pt/1.2 JBM, monospace; color: #8d877d; }
+.tight td { padding: 1.1mm 1.4mm; font-size: 8pt; line-height: 1.32; }
+.no li::marker { content: "✕  "; color: #c4553f; }
+</style>
+</head>
+<body>
+
+<!-- =========== СТРАНИЦА 1: КАК ГОВОРИТЬ =========== -->
+<section class="page">
+  <div class="head">
+    <div class="brand"><svg viewBox="0 0 26 44"><path d="M0 0h12v29h14v15H0z"/></svg>Валькирия</div>
+    <div class="head__meta">ПРОбезопасность 2026 · Новосибирск<br>памятка для стенда и прохода</div>
+  </div>
+
+  <h1>Как говорить с участниками форума</h1>
+  <p class="sub">Разговор — 3–5 минут. Цель — не продать, а понять, наш ли это клиент, и довести до записи в боте или встречи с Никитой.</p>
+
+  <div class="grid">
+    <div class="box">
+      <h2>К кому подходить</h2>
+      <ol>
+        <li><b>Руководители ЧОП, начальники дежурных частей и пультов</b> — прямые клиенты.</li>
+        <li><b>Начальники СБ</b> заводов, складов, сетей, УК бизнес-центров и ЖК — там, где посты и доклады.</li>
+        <li><b>Интеграторы и монтажники</b> — каналы продаж: ставят клиентам АТС и пульты. Говорим о партнёрстве.</li>
+        <li><b>Стенды пультового ПО и телефонии</b> — об интеграции. У этих стендов стоят нужные вам люди.</li>
+      </ol>
+      <p class="muted" style="margin-top:1.4mm">Как найти: бейджи (компания, должность), стенды пульт. ПО, сессии про охрану и продажи, кофе-брейки.</p>
+    </div>
+
+    <div class="box">
+      <h2>Не тратить время</h2>
+      <ul>
+        <li>Продавцы камер, кабеля, турникетов, пока у них клиенты.</li>
+        <li>Студенты и те, кто только про информационную безопасность.</li>
+        <li>Тот, кому неинтересно, — поблагодарить и идти дальше.</li>
+      </ul>
+      <h2 style="margin-top:3mm">Не говорить</h2>
+      <ul class="no">
+        <li>«Заменит диспетчера», «сократите штат».</li>
+        <li>Цифры экономии и сроки: «окупится за месяц», «запустим за неделю».</li>
+        <li>Технику: Vosk, llama, API. Язык смены: пост, доклад, тревога, журнал.</li>
+      </ul>
+    </div>
+
+    <div class="box box--accent full">
+      <h2>Разговор по шагам</h2>
+      <div class="grid" style="gap:2mm 6mm">
+        <div>
+          <p><b>1. Вопрос, а не презентация</b></p>
+          <p class="say">«Здравствуйте! Вы из охранной организации? А как у вас ночью принимают доклады с постов?»</p>
+          <p class="muted">Дальше слушать. Человек сам расскажет про журнал, пропущенные звонки и уставшего диспетчера.</p>
+
+          <p style="margin-top:2mm"><b>2. Суть за 15 секунд</b> — под то, что услышали</p>
+          <p class="say">«Мы делаем Валькирию — голосового ИИ-диспетчера. Пост звонит с докладом — Валя сама берёт трубку и отмечает доклад в журнале. Доклад не пришёл — поднимает тревогу. Отчёт к концу смены собирает сама. Можно поставить на свой сервер, без облака».</p>
+
+          <p style="margin-top:2mm"><b>3. Показать</b> — видео экрана на телефоне: чат с Валей и «Система докладов».</p>
+        </div>
+        <div>
+          <p><b>4. Понять, наш ли клиент</b> — 2–3 вопроса</p>
+          <ul>
+            <li>Сколько объектов и постов? Сколько диспетчеров в смену?</li>
+            <li>Как ведёте журнал: бумага, Excel, пультовая программа?</li>
+            <li>Какая телефония: своя АТС, Asterisk, мобильные?</li>
+            <li>Кто у вас решает про такие вещи?</li>
+          </ul>
+
+          <p style="margin-top:2mm"><b>5. Закрыть</b></p>
+          <p class="say">«Набираем первые организации в пилот, участникам форума — особые условия. Отсканируйте QR: название организации и пять кнопок, 30 секунд, телефон не нужен».</p>
+          <p>Отдать визитку. Взять чужую и <b>сразу записать на обороте</b>, что нужно: «40 постов, бумажный журнал, хочет демо».</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="box full">
+      <h2>Возражения</h2>
+      <table>
+        <tr><th style="width:34%">Говорят</th><th>Отвечаем</th></tr>
+        <tr><td>«У нас уже есть пультовая программа»</td><td>«Валя её не заменяет — берёт голосовую часть: звонки постов, справки, записи в журнал».</td></tr>
+        <tr><td>«ИИ напутает»</td><td>«Решения при тревоге остаются за людьми. Каждый разговор записывается и расшифровывается — всё можно прослушать».</td></tr>
+        <tr><td>«А данные куда уходят?»</td><td>«Можно поставить полностью на ваш сервер, ничего наружу не уходит».</td></tr>
+        <tr><td>«Сколько стоит?»</td><td>«Зависит от числа объектов и линий — считаем под задачу. Участникам форума — скидка».</td></tr>
+        <tr><td>«Это уже работает?»</td><td>Честно: «Ядро работает, интеграции доводим с первыми клиентами — поэтому сейчас лучшие условия».</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="foot"><span>Сайт и бот: {{SITE}}</span><span>Разработчик: Никита · t.me/{{TG}}</span></div>
+</section>
+
+<!-- =========== СТРАНИЦА 2: К КАКИМ СТЕНДАМ =========== -->
+<section class="page">
+  <div class="head">
+    <div class="brand"><svg viewBox="0 0 26 44"><path d="M0 0h12v29h14v15H0z"/></svg>Валькирия</div>
+    <div class="head__meta">ПРОбезопасность 2026 · Новосибирск<br>стенды и чек-лист</div>
+  </div>
+
+  <h1>К каким стендам подойти</h1>
+  <p class="sub">ЧОП на форуме — в основном посетители. Экспоненты ниже важны как партнёры по интеграции и как места, где собираются нужные люди. Список неполный: сверьтесь с картой выставки и отметьте стенды с пультовым ПО, АТС, оповещением и записью звонков.</p>
+
+  <div class="box">
+    <table class="tight">
+      <tr><th style="width:8%">Приор.</th><th style="width:16%">Стенд</th><th style="width:36%">Чем занимаются</th><th>Зачем подходить, что сказать</th><th style="width:7%">Номер</th></tr>
+      <tr><td><span class="p p1">1</span></td><td><b>Ритм</b></td><td>Охранные приборы «Контакт GSM», пультовая программа PCN6, облачный пульт GEO.RITM (есть связка с Asterisk)</td><td>Их клиенты — ЧОП с пультами. Об интеграции: «Валя принимает звонки постов и клиентов и пишет события — хотим работать в паре с вашим пультом». Поговорить с посетителями стенда.</td><td></td></tr>
+      <tr><td><span class="p p1">1</span></td><td><b>Болид</b></td><td>«Орион», «Орион Про» — массовая система охраны, в том числе пультовой</td><td>Самая частая система у ЧОП и СБ. Узнать, как принимать от неё события, и кто из их интеграторов на форуме.</td><td></td></tr>
+      <tr><td><span class="p p1">1</span></td><td><b>Агат-РТ</b></td><td>IP-АТС «Агат», запись переговоров «Спрут», оповещение «Спрут-Информ»</td><td>Телефония и запись звонков — то, к чему подключается Валя. Партнёрство: Валя поверх их АТС. Есть ли у них заказчики-охранники?</td><td></td></tr>
+      <tr><td><span class="p p2">2</span></td><td><b>Итриум</b></td><td>Платформа, объединяющая системы безопасности в одно рабочее место</td><td>Интеграция: события Вали в их платформу. Узнать, работают ли с охранными организациями.</td><td></td></tr>
+      <tr><td><span class="p p2">2</span></td><td><b>Fanvil</b></td><td>SIP-телефоны и SIP-домофоны</td><td>Телефоны на постах для звонков Вале. Спросить про интеграторов на объектах охраны.</td><td></td></tr>
+      <tr><td><span class="p p2">2</span></td><td><b>Тромбон</b></td><td>Речевое оповещение</td><td>Тоже голос и объекты охраны. Обменяться контактами.</td><td></td></tr>
+      <tr><td><span class="p p2">2</span></td><td><b>Сигур</b></td><td>СКУД, сами себя называют IT-компанией</td><td>Интеграции и партнёры, если будет время.</td><td></td></tr>
+      <tr><td><span class="p p3">3</span></td><td><b>Визит, Росдомофон</b></td><td>Домофоны, сервисы для управляющих компаний</td><td>Только если есть время: выход на УК и ЖК.</td><td></td></tr>
+      <tr><td><span class="p p3">—</span></td><td class="muted">Остальные</td><td class="muted" colspan="3">Камеры, кабель, турникеты, датчики, сетевое оборудование (Паритет, Оптекс, Тенда и др.) — не наш профиль. Подходить, только если у стенда стоит человек из ЧОП или интегратор.</td></tr>
+    </table>
+  </div>
+
+  <div class="grid" style="margin-top:4mm">
+    <div class="box">
+      <h2>Сессии деловой программы</h2>
+      <p>Найти в программе форума и сходить на сессии про <b>охрану объектов, пультовую охрану, продажи и ИИ в продажах</b>. Подходить к спикерам и слушателям сразу после сессии — у всех в голове тема.</p>
+      <p class="muted" style="margin-top:1.4mm">Время и зал:</p>
+      <p style="border-bottom:0.2mm solid #d9d4cc; height:5mm"></p>
+      <p style="border-bottom:0.2mm solid #d9d4cc; height:5mm"></p>
+    </div>
+    <div class="box">
+      <h2>Перед выходом</h2>
+      <ul class="check">
+        <li>Отсканировать QR с визитки через мобильный интернет</li>
+        <li>Видео экрана с Валей — на телефоне, без интернета</li>
+        <li>Телефон заряжен, пауэрбанк с собой</li>
+        <li>Визитки, ручка для заметок на чужих визитках</li>
+        <li>Никита на связи — для демо по видеосвязи</li>
+      </ul>
+      <h2 style="margin-top:3mm">Вечером</h2>
+      <ul class="check">
+        <li>Написать каждому, кто дал контакт: о чём говорили, что дальше</li>
+        <li>Отправить боту <b>/stats</b> и <b>/export</b> — таблица записей</li>
+        <li>Первыми — тем, кто ответил «готовы к пилоту»</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot"><span>Сайт и бот: {{SITE}}</span><span>Разработчик: Никита · t.me/{{TG}}</span></div>
+</section>
+
+</body>
+</html>
