@@ -329,9 +329,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .road__col ul { display: grid; gap: 10px; }
 .road__col li { position: relative; padding-left: 20px; color: var(--muted); font-size: .95rem; }
 .road__col li::before { content: "—"; position: absolute; left: 0; color: var(--dim); }
-.road__plans { grid-template-columns: 1fr 1fr; column-gap: 36px; }
-.road__plans b { color: var(--text); font-weight: 600; }
-@media (max-width: 880px) { .road { grid-template-columns: 1fr; } .road__plans { grid-template-columns: 1fr; } }
+.road__list { grid-template-columns: 1fr 1fr; column-gap: 36px; }
+@media (max-width: 880px) { .road { grid-template-columns: 1fr; } .road__list { grid-template-columns: 1fr; } }
 
 /* forum */
 .forum { padding-top: 104px; padding-bottom: 104px; }
@@ -389,7 +388,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .person__name { font-weight: 650; font-size: 1.15rem; }
 .person__role { color: var(--muted); font-size: .9rem; }
 .contact__text { color: var(--muted); max-width: 30em; }
-.contact__actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.contact__actions { display: flex; flex-direction: column; gap: 10px; }
 @media (max-width: 980px) { .contact__card { grid-template-columns: 1fr; gap: 20px; padding: 24px 20px; } .contact__actions .btn { flex: 1 1 auto; } }
 
 /* footer */

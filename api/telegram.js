@@ -52,16 +52,14 @@ function io(chatId, message) {
 const csvCell = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
 
 async function exportCsv(chatId) {
-  const rows = [...(await listSubs("tg")).map((s) => ({ ...s, pf: "Telegram" })), ...(await listSubs("max")).map((s) => ({ ...s, pf: "MAX" }))]
-    .sort((a, b) => a.n - b.n);
-  const head = ["№", "Дата", "Организация", ...QUESTIONS.map((q) => q.title), "Анкета", "Мессенджер", "Источник"];
+  const rows = await listSubs("tg");
+  const head = ["№", "Дата", "Организация", ...QUESTIONS.map((q) => q.title), "Анкета", "Источник"];
   const lines = rows.map((s) => [
     pad(s.n),
     new Date(s.at).toLocaleString("ru-RU", { timeZone: "Asia/Novosibirsk" }),
     s.company || "",
     ...QUESTIONS.map((q) => answerLabel(q.id, s.answers?.[q.id])),
     s.done ? "заполнена" : s.company ? "не до конца" : "только запись",
-    s.pf,
     s.src || "",
   ].map(csvCell).join(";"));
   // BOM и «;» — чтобы Excel открыл кириллицу и колонки без настройки.
@@ -75,12 +73,11 @@ async function exportCsv(chatId) {
 }
 
 async function stats(chatId) {
-  const [t, m] = await Promise.all([listSubs("tg"), listSubs("max")]);
-  const all = [...t, ...m];
+  const all = await listSubs("tg");
   const done = all.filter((s) => s.done).length;
   const bare = all.filter((s) => !s.company).length;
   const hot = all.filter((s) => s.answers?.when === "now").length;
-  return send(chatId, `Предзапись: <b>${all.length}</b> (Telegram ${t.length}, MAX ${m.length})\nАнкету заполнили: ${done}\nТолько нажали «Записаться»: ${bare}\nГотовы к пилоту сейчас: ${hot}\n\nТаблица: /export`);
+  return send(chatId, `Предзапись: <b>${all.length}</b>\nАнкету заполнили: ${done}\nТолько нажали «Записаться»: ${bare}\nГотовы к пилоту сейчас: ${hot}\n\nТаблица: /export`);
 }
 
 async function broadcast(fromId, text) {

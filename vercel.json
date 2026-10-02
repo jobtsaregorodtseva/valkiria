@@ -5,8 +5,7 @@
   "outputDirectory": "dist",
   "cleanUrls": true,
   "functions": {
-    "api/telegram.js": { "maxDuration": 60 },
-    "api/max.js": { "maxDuration": 30 }
+    "api/telegram.js": { "maxDuration": 60 }
   },
   "headers": [
     {

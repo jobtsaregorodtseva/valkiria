@@ -15,8 +15,7 @@ const dist = join(root, "dist");
 // Переменные окружения Vercel перекрывают конфиг (можно поменять без коммита).
 const siteUrl = (process.env.SITE_URL || cfg.siteUrl).replace(/\/$/, "");
 const botTg = process.env.PUBLIC_TELEGRAM_BOT || cfg.bots.telegram;
-const botMax = process.env.PUBLIC_MAX_BOT || cfg.bots.max;
-const dev = cfg.developer;
+const mgr = cfg.manager;
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const MONTHS = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
@@ -65,14 +64,12 @@ const renderUpdate = (u) => `
       </article>`;
 
 // ---------- подстановки ----------
-const devTgUrl = `https://t.me/${dev.telegram}`;
-const botTgHref = botTg ? `https://t.me/${botTg}?start=site` : devTgUrl;
+const mgrTgUrl = `https://t.me/${mgr.telegram}`;
+const botTgHref = botTg ? `https://t.me/${botTg}?start=site` : mgrTgUrl;
 const botTgLabel = botTg ? "Записаться в Telegram-боте" : "Записаться через Telegram";
-const botMaxButton = botMax
-  ? `<a class="btn btn--ghost btn--block" href="https://max.ru/${esc(botMax)}" target="_blank" rel="noopener">Записаться в MAX</a>`
-  : `<span class="btn btn--ghost btn--block" aria-disabled="true">Бот в MAX — скоро</span>`;
-const waDigits = (dev.whatsapp || "").replace(/\D/g, "");
-const phoneDigits = (dev.phone || "").replace(/[^\d+]/g, "");
+const waDigits = (mgr.whatsapp || "").replace(/\D/g, "");
+const waUrl = waDigits ? `https://wa.me/${waDigits}${mgr.whatsappText ? `?text=${encodeURIComponent(mgr.whatsappText)}` : ""}` : "";
+const phoneDigits = (mgr.phone || "").replace(/[^\d+]/g, "");
 
 const vars = {
   SITE_URL: siteUrl,
@@ -81,16 +78,15 @@ const vars = {
   FORUM_NAME: esc(cfg.forum.name),
   FORUM_PLACE: esc(cfg.forum.place),
   FORUM_DATES: esc(cfg.forum.dates),
-  DEV_TG_URL: devTgUrl,
-  DEV_TG: esc(dev.telegram),
-  DEV_NAME: esc(dev.name),
-  DEV_ROLE: esc(dev.role),
-  DEV_INITIAL: esc(dev.name.slice(0, 1)),
-  DEV_WA_BUTTON: waDigits ? `<a class="btn btn--ghost" href="https://wa.me/${waDigits}" target="_blank" rel="noopener">WhatsApp</a>` : "",
-  DEV_PHONE_BUTTON: phoneDigits ? `<a class="btn btn--ghost" href="tel:${phoneDigits}">${esc(dev.phone)}</a>` : "",
+  MGR_TG_URL: mgrTgUrl,
+  MGR_TG: esc(mgr.telegram),
+  MGR_NAME: esc(mgr.name),
+  MGR_ROLE: esc(mgr.role),
+  MGR_INITIAL: esc(mgr.name.slice(0, 1)),
+  MGR_WA_BUTTON: waUrl ? `<a class="btn btn--ghost" href="${esc(waUrl)}" target="_blank" rel="noopener">WhatsApp · ${esc(mgr.whatsapp)}</a>` : "",
+  MGR_PHONE_BUTTON: phoneDigits ? `<a class="btn btn--ghost" href="tel:${phoneDigits}">${esc(mgr.phone)}</a>` : "",
   BOT_TG_HREF: botTgHref,
   BOT_TG_LABEL: botTgLabel,
-  BOT_MAX_BUTTON: botMaxButton,
 };
 const fill = (tpl) => tpl.replace(/\{\{([A-Z_]+)\}\}/g, (_, k) => {
   if (!(k in vars)) throw new Error(`Неизвестная подстановка {{${k}}}`);
@@ -166,10 +162,10 @@ writeFileSync(join(dist, "privacy/index.html"), page({
 <p class="eyebrow">Бот предзаписи</p>
 <h1>Какие данные сохраняет бот</h1>
 <div class="prose">
-<p>На сайте нет форм: мы не просим имя, телефон или почту. Предзапись идёт через бота в Telegram (позже — и в MAX).</p>
+<p>На сайте нет форм: мы не просим имя, телефон или почту. Предзапись идёт через бота в Telegram.</p>
 <h2>Что сохраняется</h2>
 <ul>
-<li>ваш числовой идентификатор в мессенджере (Telegram ID или MAX ID) — чтобы бот мог прислать сообщение;</li>
+<li>ваш числовой идентификатор в Telegram (Telegram ID) — чтобы бот мог прислать сообщение;</li>
 <li>название вашей организации, если вы его укажете;</li>
 <li>ответы на вопросы-кнопки: тип организации, число объектов, как ведёте журнал, какая телефония, когда хотите попробовать;</li>
 <li>дата и время записи, откуда вы пришли (например, «форум» или «сайт») и номер в списке.</li>
@@ -180,7 +176,7 @@ writeFileSync(join(dist, "privacy/index.html"), page({
 <h2>Как удалить</h2>
 <p>Отправьте боту команду <code>/stop</code> — запись удаляется сразу. Если вы удалите чат с ботом, сообщения от нас приходить перестанут.</p>
 <h2>Связь</h2>
-<p>Вопросы о данных — в Telegram: <a href="${devTgUrl}" target="_blank" rel="noopener">@${esc(dev.telegram)}</a>.</p>
+<p>Вопросы о данных — менеджеру в Telegram: <a href="${mgrTgUrl}" target="_blank" rel="noopener">@${esc(mgr.telegram)}</a>.</p>
 </div>`,
 }));
 

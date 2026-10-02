@@ -7,7 +7,7 @@
     "dev": "node scripts/build.mjs && npx --yes serve dist -l 3000",
     "card": "node print/card.mjs",
     "memo": "node print/memo.mjs",
-    "check": "node --check api/telegram.js && node --check api/max.js && node scripts/build.mjs"
+    "check": "node --check api/telegram.js && node --check api/setup.js && node scripts/build.mjs"
   },
   "engines": {
     "node": ">=20"
