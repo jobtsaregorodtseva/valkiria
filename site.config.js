@@ -1,6 +1,6 @@
 // Настройки сайта и ботов. Меняете контакты — правьте здесь и делайте коммит.
 export default {
-  "siteUrl": "https://valkiriasecure.ru",
+  "siteUrl": "https://valkiria-gamma.vercel.app",
   "productName": "Валькирия",
   "assistantName": "Валя",
   "forum": {

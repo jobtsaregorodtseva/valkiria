@@ -40,7 +40,7 @@ tag: Интерфейс
 ## Деплой на Vercel
 
 1. vercel.com → Add New → Project → импортировать `valkiria`. Настройки сборки уже в `vercel.json`, ничего менять не нужно → Deploy.
-2. Основной адрес сайта — `valkiriasecure.ru` (REG.RU, см. ниже), на Vercel он же доступен как `valkiria-gamma.vercel.app` (на него ведёт QR на напечатанных визитках — проект не удалять). Сменится адрес — поменять `siteUrl` в `site.config.js` (от него зависят QR, ссылки и кнопки бота).
+2. Адрес сайта — `valkiria-gamma.vercel.app` (на него ведёт QR на напечатанных визитках — проект не удалять). Когда заработает `valkiriasecure.ru` (REG.RU, см. ниже), поменять `siteUrl` в `site.config.js` — от него зависят QR, ссылки и кнопки бота.
 3. Хранилище: проект → Storage → Create → **Upstash for Redis** (бесплатный план) → Connect. Переменные `KV_REST_API_URL` и `KV_REST_API_TOKEN` добавятся сами.
 4. Бот: в Telegram @BotFather → `/newbot` → получить токен.
 5. Settings → Environment Variables:
@@ -60,8 +60,9 @@ tag: Интерфейс
 Сайт статический — можно держать на обычном хостинге REG.RU. Бот при этом остаётся на Vercel:
 ему нужен сервер для вебхука, а на сайте только ссылка на него.
 
-1. Адрес сайта (`siteUrl`) и имя бота (`bots.telegram`) уже заданы в `site.config.js`.
-2. `npm install && npm run build` — готовый сайт в `dist/`.
+1. Имя бота (`bots.telegram`) задано в `site.config.js`.
+2. `npm install`, затем сборка с адресом домена: `SITE_URL=https://valkiriasecure.ru npm run build`
+   (Windows: `set SITE_URL=https://valkiriasecure.ru && npm run build`) — готовый сайт в `dist/`.
 3. Заархивировать **содержимое** `dist/` (не саму папку) в zip.
 4. ISPmanager REG.RU → «Менеджер файлов» → папка сайта (обычно `www/<домен>/`) → загрузить zip → «Извлечь».
    В папке должны оказаться `index.html`, `.htaccess`, `styles.css`, `fonts/` и т. д.
